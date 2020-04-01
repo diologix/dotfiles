@@ -2,6 +2,7 @@
 call plug#begin()
 "Plug 'roxma/nvim-completion-manager'
 "Plug 'SirVer/ultisnips'
+Plug 'scrooloose/nerdtree'
 Plug 'neomake/neomake'
 Plug 'jiangmiao/auto-pairs' "Plugin für Klammer Completion
 ""Theme Plugins
@@ -12,7 +13,17 @@ call plug#end()
 
 colorscheme gruvbox
 
-"AIRLINE configuration
+
+
+" Nerdtree configuration
+nnoremap nt :NERDTreeToggle<CR>
+augroup nerdtree_open
+	autocmd!
+	autocmd VimEnter * NERDTree | wincmd p
+augroup END
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
+""AIRLINE configuration
 "let g:airline#extensions#tabline#enabled = 1
 let g:airline_section_b = '%{strftime("%c")}'
 let g:airline_section_b = 'BN: %{bufnr("%")}'
@@ -65,4 +76,6 @@ nnoremap <C-l> <C-w>l
 
 " Navigation Settings
 nnoremap J 5j
+nnoremap <C-J> 20j
 nnoremap K 5k
+nnoremap <C-K> 20k
